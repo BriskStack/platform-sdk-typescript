@@ -1,6 +1,6 @@
 {
   "name": "@briskstack/platform",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "OpenAPI client for @briskstack/platform",
   "author": "OpenAPI-Generator",
   "repository": {

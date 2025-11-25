@@ -47,39 +47,30 @@ jobs:
           echo "Publishing version: $VERSION"
 
       - name: Check if version already published
-        id: check-version
         run: |
           PACKAGE_NAME=$(node -p "require('./package.json').name")
           if npm view "$PACKAGE_NAME@${{ steps.package-version.outputs.version }}" version &>/dev/null; then
-            echo "exists=true" >> $GITHUB_OUTPUT
-            echo "⚠️ Version ${{ steps.package-version.outputs.version }} already published"
+            echo "❌ Version ${{ steps.package-version.outputs.version }} already published to npm"
+            exit 1
           else
-            echo "exists=false" >> $GITHUB_OUTPUT
-            echo "✅ Version ${{ steps.package-version.outputs.version }} not yet published"
+            echo "✅ Version ${{ steps.package-version.outputs.version }} not yet published, proceeding"
           fi
 
       - name: Install dependencies
-        if: steps.check-version.outputs.exists == 'false'
-        run: npm install
-
+        run: npm ci
+        
       - name: Build
-        if: steps.check-version.outputs.exists == 'false'
         run: npm run build --if-present
 
       - name: Run tests
-        if: steps.check-version.outputs.exists == 'false'
         run: npm test --if-present
 
       - name: Publish to npm
-        if: steps.check-version.outputs.exists == 'false'
         run: |
           NPM_TAG="${{ github.event.inputs.npm_tag || 'latest' }}"
-          npm publish --access public --tag "$NPM_TAG" --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          npm publish --tag "$NPM_TAG"
 
       - name: Create Git tag
-        if: steps.check-version.outputs.exists == 'false'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -96,11 +87,7 @@ jobs:
 
       - name: Summary
         run: |
-          if [ "${{ steps.check-version.outputs.exists }}" == "true" ]; then
-            echo "⚠️ Version already published, skipped" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "✅ Published to npm" >> $GITHUB_STEP_SUMMARY
-          fi
+          echo "✅ Published to npm" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- Package: @briskstack/platform" >> $GITHUB_STEP_SUMMARY
           echo "- Version: ${{ steps.package-version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
