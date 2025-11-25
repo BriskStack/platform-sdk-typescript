@@ -1,4 +1,4 @@
-# This workflow should be placed in the sdk-typescript repository at:
+# This workflow should be placed in the platform-sdk-typescript repository at:
 # .github/workflows/publish.yml
 #
 # It automatically publishes to npm when changes are pushed to main

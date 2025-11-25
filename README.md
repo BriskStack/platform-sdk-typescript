@@ -283,6 +283,6 @@ MIT
 
 ## Support
 
-- GitHub Issues: [briskstack/sdk-typescript/issues](https://github.com/briskstack/sdk-typescript/issues)
+- GitHub Issues: [briskstack/platform-sdk-typescript/issues](https://github.com/briskstack/platform-sdk-typescript/issues)
 - Email: support@briskstack.com
 - Documentation: [docs.briskstack.com](https://docs.briskstack.com)
