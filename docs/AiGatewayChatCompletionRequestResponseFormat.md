@@ -12,7 +12,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { AiGatewayChatCompletionRequestResponseFormat } from '@briskstack/platform-sdk'
+import type { AiGatewayChatCompletionRequestResponseFormat } from '@briskstack/platform'
 
 // TODO: Update the object below with actual values
 const example = {

@@ -22,11 +22,11 @@ Creates a chat completion using AI providers via Cloudflare AI Gateway. Supports
 import {
   Configuration,
   AiGatewayChatApi,
-} from '@briskstack/platform-sdk';
-import type { AiGatewayV1ChatCompletionsPostRequest } from '@briskstack/platform-sdk';
+} from '@briskstack/platform';
+import type { AiGatewayV1ChatCompletionsPostRequest } from '@briskstack/platform';
 
 async function example() {
-  console.log("🚀 Testing @briskstack/platform-sdk SDK...");
+  console.log("🚀 Testing @briskstack/platform SDK...");
   const config = new Configuration({ 
     // To configure API key authorization: apiKeyAuth
     apiKey: "YOUR API KEY",

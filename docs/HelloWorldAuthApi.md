@@ -22,11 +22,11 @@ Demonstrates authentication - requires valid user JWT from Supabase
 import {
   Configuration,
   HelloWorldAuthApi,
-} from '@briskstack/platform-sdk';
-import type { HelloWorldV1ProtectedGetRequest } from '@briskstack/platform-sdk';
+} from '@briskstack/platform';
+import type { HelloWorldV1ProtectedGetRequest } from '@briskstack/platform';
 
 async function example() {
-  console.log("🚀 Testing @briskstack/platform-sdk SDK...");
+  console.log("🚀 Testing @briskstack/platform SDK...");
   const config = new Configuration({ 
     // Configure HTTP bearer authorization: bearerAuth
     accessToken: "YOUR BEARER TOKEN",

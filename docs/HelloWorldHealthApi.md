@@ -22,11 +22,11 @@ Returns service health status
 import {
   Configuration,
   HelloWorldHealthApi,
-} from '@briskstack/platform-sdk';
-import type { HelloWorldV1HealthzGetRequest } from '@briskstack/platform-sdk';
+} from '@briskstack/platform';
+import type { HelloWorldV1HealthzGetRequest } from '@briskstack/platform';
 
 async function example() {
-  console.log("🚀 Testing @briskstack/platform-sdk SDK...");
+  console.log("🚀 Testing @briskstack/platform SDK...");
   const api = new HelloWorldHealthApi();
 
   try {

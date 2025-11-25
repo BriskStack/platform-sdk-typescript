@@ -22,11 +22,11 @@ Returns service health status
 import {
   Configuration,
   AiGatewayHealthApi,
-} from '@briskstack/platform-sdk';
-import type { AiGatewayV1HealthzGetRequest } from '@briskstack/platform-sdk';
+} from '@briskstack/platform';
+import type { AiGatewayV1HealthzGetRequest } from '@briskstack/platform';
 
 async function example() {
-  console.log("🚀 Testing @briskstack/platform-sdk SDK...");
+  console.log("🚀 Testing @briskstack/platform SDK...");
   const api = new AiGatewayHealthApi();
 
   try {

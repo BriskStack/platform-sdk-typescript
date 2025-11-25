@@ -102,8 +102,8 @@ jobs:
             echo "✅ Published to npm" >> $GITHUB_STEP_SUMMARY
           fi
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- Package: @briskstack/platform-sdk" >> $GITHUB_STEP_SUMMARY
+          echo "- Package: @briskstack/platform" >> $GITHUB_STEP_SUMMARY
           echo "- Version: ${{ steps.package-version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
           echo "- Tag: ${{ github.event.inputs.npm_tag || 'latest' }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "📦 Install: \`npm install @briskstack/platform-sdk\`" >> $GITHUB_STEP_SUMMARY
+          echo "📦 Install: \`npm install @briskstack/platform\`" >> $GITHUB_STEP_SUMMARY

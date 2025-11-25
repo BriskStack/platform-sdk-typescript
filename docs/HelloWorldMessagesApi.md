@@ -22,11 +22,11 @@ Creates a new message
 import {
   Configuration,
   HelloWorldMessagesApi,
-} from '@briskstack/platform-sdk';
-import type { HelloWorldV1MessagesPostRequest } from '@briskstack/platform-sdk';
+} from '@briskstack/platform';
+import type { HelloWorldV1MessagesPostRequest } from '@briskstack/platform';
 
 async function example() {
-  console.log("🚀 Testing @briskstack/platform-sdk SDK...");
+  console.log("🚀 Testing @briskstack/platform SDK...");
   const api = new HelloWorldMessagesApi();
 
   const body = {

@@ -11,7 +11,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { AiGatewayErrorResponse } from '@briskstack/platform-sdk'
+import type { AiGatewayErrorResponse } from '@briskstack/platform'
 
 // TODO: Update the object below with actual values
 const example = {

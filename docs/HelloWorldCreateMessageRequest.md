@@ -12,7 +12,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { HelloWorldCreateMessageRequest } from '@briskstack/platform-sdk'
+import type { HelloWorldCreateMessageRequest } from '@briskstack/platform'
 
 // TODO: Update the object below with actual values
 const example = {

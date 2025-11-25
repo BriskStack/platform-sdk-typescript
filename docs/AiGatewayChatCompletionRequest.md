@@ -26,7 +26,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { AiGatewayChatCompletionRequest } from '@briskstack/platform-sdk'
+import type { AiGatewayChatCompletionRequest } from '@briskstack/platform'
 
 // TODO: Update the object below with actual values
 const example = {

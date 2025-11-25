@@ -15,7 +15,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { HelloWorldHelloResponse } from '@briskstack/platform-sdk'
+import type { HelloWorldHelloResponse } from '@briskstack/platform'
 
 // TODO: Update the object below with actual values
 const example = {

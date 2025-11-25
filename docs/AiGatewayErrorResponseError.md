@@ -13,7 +13,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { AiGatewayErrorResponseError } from '@briskstack/platform-sdk'
+import type { AiGatewayErrorResponseError } from '@briskstack/platform'
 
 // TODO: Update the object below with actual values
 const example = {

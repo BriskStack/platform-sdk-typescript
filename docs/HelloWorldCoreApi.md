@@ -22,11 +22,11 @@ Returns a friendly hello message with service information
 import {
   Configuration,
   HelloWorldCoreApi,
-} from '@briskstack/platform-sdk';
-import type { HelloWorldV1GetRequest } from '@briskstack/platform-sdk';
+} from '@briskstack/platform';
+import type { HelloWorldV1GetRequest } from '@briskstack/platform';
 
 async function example() {
-  console.log("🚀 Testing @briskstack/platform-sdk SDK...");
+  console.log("🚀 Testing @briskstack/platform SDK...");
   const api = new HelloWorldCoreApi();
 
   try {
