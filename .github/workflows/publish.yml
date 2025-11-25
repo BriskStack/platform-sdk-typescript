@@ -1,0 +1,109 @@
+# This workflow should be placed in the sdk-typescript repository at:
+# .github/workflows/publish.yml
+#
+# It automatically publishes to npm when changes are pushed to main
+
+name: Publish to npm
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'package.json'
+      - 'src/**'
+      - 'tsconfig.json'
+  workflow_dispatch:
+    inputs:
+      npm_tag:
+        description: 'npm dist-tag'
+        required: false
+        default: 'latest'
+        type: string
+
+jobs:
+  publish:
+    name: Publish TypeScript SDK to npm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write  # Required for npm provenance
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Get package version
+        id: package-version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Publishing version: $VERSION"
+
+      - name: Check if version already published
+        id: check-version
+        run: |
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
+          if npm view "$PACKAGE_NAME@${{ steps.package-version.outputs.version }}" version &>/dev/null; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "⚠️ Version ${{ steps.package-version.outputs.version }} already published"
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "✅ Version ${{ steps.package-version.outputs.version }} not yet published"
+          fi
+
+      - name: Install dependencies
+        if: steps.check-version.outputs.exists == 'false'
+        run: npm install
+
+      - name: Build
+        if: steps.check-version.outputs.exists == 'false'
+        run: npm run build --if-present
+
+      - name: Run tests
+        if: steps.check-version.outputs.exists == 'false'
+        run: npm test --if-present
+
+      - name: Publish to npm
+        if: steps.check-version.outputs.exists == 'false'
+        run: |
+          NPM_TAG="${{ github.event.inputs.npm_tag || 'latest' }}"
+          npm publish --access public --tag "$NPM_TAG" --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create Git tag
+        if: steps.check-version.outputs.exists == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          TAG="v${{ steps.package-version.outputs.version }}"
+
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists"
+          else
+            git tag -a "$TAG" -m "Release v${{ steps.package-version.outputs.version }}"
+            git push origin "$TAG"
+            echo "✅ Created and pushed tag $TAG"
+          fi
+
+      - name: Summary
+        run: |
+          if [ "${{ steps.check-version.outputs.exists }}" == "true" ]; then
+            echo "⚠️ Version already published, skipped" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ Published to npm" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- Package: @briskstack/platform-sdk" >> $GITHUB_STEP_SUMMARY
+          echo "- Version: ${{ steps.package-version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Tag: ${{ github.event.inputs.npm_tag || 'latest' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📦 Install: \`npm install @briskstack/platform-sdk\`" >> $GITHUB_STEP_SUMMARY
