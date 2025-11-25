@@ -5,7 +5,7 @@
   "author": "OpenAPI-Generator",
   "repository": {
     "type": "git",
-    "url": "https://github.com/GIT_USER_ID/GIT_REPO_ID.git"
+    "url": "git+https://github.com/BriskStack/platform-sdk-typescript.git"
   },
   "license": "MIT",
   "main": "./dist/index.js",
