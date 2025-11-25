@@ -68,7 +68,7 @@ jobs:
       - name: Publish to npm
         run: |
           NPM_TAG="${{ github.event.inputs.npm_tag || 'latest' }}"
-          npm publish --tag "$NPM_TAG"
+          npm publish --access public --tag "$NPM_TAG" --provenance
 
       - name: Create Git tag
         run: |
