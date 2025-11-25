@@ -21,6 +21,10 @@ on:
         default: 'latest'
         type: string
 
+permissions:
+  contents: read
+  id-token: write  # Required for OIDC
+
 jobs:
   publish:
     name: Publish TypeScript SDK to npm
@@ -31,12 +35,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: lts/*
           registry-url: 'https://registry.npmjs.org'
 
       - name: Update npm to latest
@@ -69,6 +73,8 @@ jobs:
         run: npm test --if-present
 
       - name: Publish to npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           NPM_TAG="${{ github.event.inputs.npm_tag || 'latest' }}"
           npm publish --access public --tag "$NPM_TAG" --provenance
