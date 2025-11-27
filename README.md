@@ -12,11 +12,13 @@ npm install @briskstack/platform-sdk
 ```
 
 Or with yarn:
+
 ```bash
 yarn add @briskstack/platform-sdk
 ```
 
 Or with pnpm:
+
 ```bash
 pnpm add @briskstack/platform-sdk
 ```
@@ -35,15 +37,15 @@ const config = new Configuration({
 // Use different services
 const helloWorldApi = new HelloWorldMessagesApi(config);
 const message = await helloWorldApi.helloWorldV1MessagesPost({
-  helloWorldCreateMessageRequest: { content: 'Hello!' }
+  helloWorldCreateMessageRequest: { content: 'Hello!' },
 });
 
 const aiGatewayApi = new AiGatewayChatApi(config);
 const completion = await aiGatewayApi.aiGatewayV1ChatCompletionsPost({
   aiGatewayChatCompletionRequest: {
     model: 'gpt-4',
-    messages: [{ role: 'user', content: 'Hello AI' }]
-  }
+    messages: [{ role: 'user', content: 'Hello AI' }],
+  },
 });
 ```
 
@@ -110,7 +112,7 @@ This SDK includes all BriskStack platform services:
 
 - **Hello World** - Example service
 - **AI Gateway** - AI model integrations
-- *(More services added automatically)*
+- _(More services added automatically)_
 
 See the [API documentation](https://docs.briskstack.com) for complete service details.
 
@@ -130,7 +132,7 @@ const api = new HelloWorldMessagesApi(config);
 
 // Create a message
 const message = await api.helloWorldV1MessagesPost({
-  helloWorldCreateMessageRequest: { content: 'Hello, World!' }
+  helloWorldCreateMessageRequest: { content: 'Hello, World!' },
 });
 
 console.log(message.data);
@@ -154,9 +156,9 @@ const completion = await api.aiGatewayV1ChatCompletionsPost({
     model: 'gpt-4',
     messages: [
       { role: 'system', content: 'You are a helpful assistant.' },
-      { role: 'user', content: 'Tell me a joke about programming.' }
-    ]
-  }
+      { role: 'user', content: 'Tell me a joke about programming.' },
+    ],
+  },
 });
 
 console.log(completion.data.choices[0].message.content);
@@ -167,7 +169,7 @@ console.log(completion.data.choices[0].message.content);
 ```typescript
 try {
   const message = await api.helloWorldV1MessagesPost({
-    helloWorldCreateMessageRequest: { content: 'Hello!' }
+    helloWorldCreateMessageRequest: { content: 'Hello!' },
   });
 } catch (error) {
   if (error.response) {
@@ -192,16 +194,16 @@ import type {
   HelloWorldMessage,
   HelloWorldCreateMessageRequest,
   AiGatewayChatCompletionRequest,
-  AiGatewayChatCompletionResponse
+  AiGatewayChatCompletionResponse,
 } from '@briskstack/platform-sdk';
 
 const request: HelloWorldCreateMessageRequest = {
   content: 'Hello!',
-  metadata: { key: 'value' }
+  metadata: { key: 'value' },
 };
 
 const message: HelloWorldMessage = await api.helloWorldV1MessagesPost({
-  helloWorldCreateMessageRequest: request
+  helloWorldCreateMessageRequest: request,
 });
 ```
 
@@ -222,7 +224,7 @@ export async function POST(request: Request) {
 
   const api = new HelloWorldMessagesApi(config);
   const message = await api.helloWorldV1MessagesPost({
-    helloWorldCreateMessageRequest: await request.json()
+    helloWorldCreateMessageRequest: await request.json(),
   });
 
   return NextResponse.json(message.data);
@@ -246,7 +248,7 @@ app.post('/api/hello', async (req, res) => {
 
   const api = new HelloWorldMessagesApi(config);
   const message = await api.helloWorldV1MessagesPost({
-    helloWorldCreateMessageRequest: req.body
+    helloWorldCreateMessageRequest: req.body,
   });
 
   res.json(message.data);
@@ -266,16 +268,11 @@ For older browsers, use a fetch polyfill like [whatwg-fetch](https://www.npmjs.c
 
 ## Contributing
 
-This SDK is automatically generated from OpenAPI specifications. To contribute:
-
-1. Make changes to the platform services in [briskstack-platform](https://github.com/briskstack/briskstack-platform)
-2. The SDK will be automatically regenerated and published
+This SDK is automatically generated from OpenAPI specifications. For SDK issues, please open an issue in this repository.
 
 ## Documentation
 
 - [API Documentation](https://docs.briskstack.com)
-- [Platform Repository](https://github.com/briskstack/briskstack-platform)
-- [SDK Generation Guide](https://github.com/briskstack/briskstack-platform/tree/main/sdks)
 
 ## License
 
